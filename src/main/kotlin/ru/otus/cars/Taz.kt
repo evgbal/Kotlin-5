@@ -55,6 +55,7 @@ object Taz: Car {
         override fun receiveFuel(liters: Int) {
             throw Exception("Взрыв!!!")
         }
+
     }
 
     override fun toString(): String {

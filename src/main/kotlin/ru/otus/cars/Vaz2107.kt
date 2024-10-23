@@ -108,7 +108,7 @@ class Vaz2107 private constructor(color: String) : VazPlatform(color) {
         }
 
         override fun toString(): String {
-            return "${currentFuel}л"
+            return "$mouth ${currentFuel}л"
         }
     }
 }
