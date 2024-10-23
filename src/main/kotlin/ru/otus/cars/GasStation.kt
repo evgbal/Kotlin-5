@@ -26,7 +26,7 @@ class GasStation {
         }
         return true
     }
-    fun refuel(cars: List<Car>): List<RefuelResult> {
+    fun refuel(cars: Collection<Car>): List<RefuelResult> {
         val result: MutableList<RefuelResult> = ArrayList()
         for (car in cars) {
             val refueled = refuel(car)
