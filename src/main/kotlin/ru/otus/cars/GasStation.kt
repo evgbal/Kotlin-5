@@ -2,10 +2,10 @@ package ru.otus.cars
 
 import kotlin.random.Random
 
-class GasStation {
+open class GasStation {
     class RefuelResult (val car: Car, val refueled: Boolean)
 
-    fun refuel(car: Car): Boolean {
+    open fun refuel(car: Car): Boolean {
         try {
             println()
             println("Прибыл на заправку $car")
@@ -36,4 +36,18 @@ class GasStation {
     }
 }
 
-val piterGasStation: GasStation = GasStation()
+object PiterGasStation : GasStation() {
+    override fun refuel(car: Car): Boolean {
+        println()
+        println("Заправка в Питере:")
+        return super.refuel(car)
+    }
+}
+
+object MoscowGasStation : GasStation() {
+    override fun refuel(car: Car): Boolean {
+        println()
+        println("Заправка в Москве:")
+        return super.refuel(car)
+    }
+}

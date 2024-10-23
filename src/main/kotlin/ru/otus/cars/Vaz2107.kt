@@ -104,7 +104,7 @@ class Vaz2107 private constructor(color: String) : VazPlatform(color) {
         }
 
         override fun receiveFuel(liters: Int) {
-            this.currentFuel = liters
+            this.currentFuel += liters
         }
 
         override fun toString(): String {

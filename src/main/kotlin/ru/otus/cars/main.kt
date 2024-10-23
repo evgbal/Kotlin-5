@@ -101,10 +101,21 @@ fun refuelCars() {
         Vaz2108.build(Car.Plates("321", 78)),
         Taz
     )
-    val result = piterGasStation.refuel(cars)
+    val resultPiter = PiterGasStation.refuel(cars)
     println()
     println("В итоге заправки:")
-    for (i in result) {
+    for (i in resultPiter) {
+        if (i.refueled) {
+            println(i.car.toString())
+        } else {
+            println(i.car.toString() + " не заправлен")
+        }
+    }
+
+    val resultMoscow = MoscowGasStation.refuel(cars)
+    println()
+    println("В итоге заправки:")
+    for (i in resultMoscow) {
         if (i.refueled) {
             println(i.car.toString())
         } else {
