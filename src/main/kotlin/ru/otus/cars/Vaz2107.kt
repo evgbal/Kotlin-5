@@ -1,5 +1,6 @@
 package ru.otus.cars
 
+import ru.otus.cars.Vaz2108.Companion.build
 import kotlin.random.Random
 
 /**
@@ -20,6 +21,8 @@ class Vaz2107 private constructor(color: String) : VazPlatform(color) {
         override fun build(plates: Car.Plates): Vaz2107 = Vaz2107("Зеленый").apply {
             this.engine = getRandomEngine()
             this.plates = plates
+            this.tank = VazTank()
+            this.tankMouth = LpgMouth(this.tank)
         }
 
         /**
@@ -50,6 +53,10 @@ class Vaz2107 private constructor(color: String) : VazPlatform(color) {
 
     private var currentSpeed: Int = 0 // Скока жмёт
 
+    // Скока топлива
+    private lateinit var tank: Tank
+        private set
+
     /**
      * Доступно сборщику
      * @see [build]
@@ -57,9 +64,16 @@ class Vaz2107 private constructor(color: String) : VazPlatform(color) {
     override lateinit var plates: Car.Plates
         private set
 
+    /**
+     * Доступно сборщику
+     * @see [build]
+     */
+    override lateinit var tankMouth: TankMouth
+        private set
+
     // Выводим состояние машины
     override fun toString(): String {
-        return "Vaz2107(plates=$plates, wheelAngle=$wheelAngle, currentSpeed=$currentSpeed)"
+        return "Vaz2107(plates=$plates, wheelAngle=$wheelAngle, currentSpeed=$currentSpeed, fuel=$tank)"
     }
 
     /**
@@ -73,6 +87,28 @@ class Vaz2107 private constructor(color: String) : VazPlatform(color) {
     inner class VazOutput : CarOutput {
         override fun getCurrentSpeed(): Int {
             return this@Vaz2107.currentSpeed
+        }
+
+        override fun getFuelContents(): Int {
+            return this@Vaz2107.tank.getContents()
+        }
+    }
+
+    private inner class VazTank() : Tank {
+        private var currentFuel: Int = 0
+
+        override val mouth: TankMouth get() { return this@Vaz2107.tankMouth }
+
+        override fun getContents(): Int {
+            return currentFuel
+        }
+
+        override fun receiveFuel(liters: Int) {
+            this.currentFuel = liters
+        }
+
+        override fun toString(): String {
+            return "${currentFuel}л"
         }
     }
 }
