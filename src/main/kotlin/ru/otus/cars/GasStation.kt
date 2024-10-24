@@ -13,10 +13,13 @@ open class GasStation {
             if (car.tankMouth is PetrolMouth) {
                 println("Заправка бензином")
                 (car.tankMouth as PetrolMouth).fuelPetrol(Random.nextInt(40))
-            }
+            } else
             if (car.tankMouth is LpgMouth) {
                 println("Заправка природным газом")
                 (car.tankMouth as LpgMouth).fuelLpg(Random.nextInt(100))
+            } else {
+                println("Неизвестный тип топлива")
+                return false
             }
             car.tankMouth.close()
             println("Заправка завершена")
